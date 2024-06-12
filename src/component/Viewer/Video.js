@@ -26,32 +26,40 @@ const Artplayer = React.lazy(() =>
     )
 );
 
+function getSource(source) {
+    // for local
+    if (source.startsWith("/")) {
+        return `${window.location.origin}${source}`
+    }
+    return source
+}
+
 const externalPlayers = [
     {
         name: "PotPlayer",
-        url: (source, title) => `potplayer://${source}`,
+        url: (source, title) => `potplayer://${getSource(source)}`,
     },
     {
         name: "VLC",
-        url: (source, title) => `vlc://${source}`,
+        url: (source, title) => `vlc://${getSource(source)}`,
     },
     {
         name: "IINA",
-        url: (source, title) => `iina://weblink?url=${source}`,
+        url: (source, title) => `iina://weblink?url=${getSource(source)}`,
     },
     {
         name: "nPlayer",
-        url: (source, title) => `nplayer-${source}`,
+        url: (source, title) => `nplayer-${getSource(source)}`,
     },
     {
         name: "MXPlayer (Free)",
         url: (source, title) =>
-            `intent:${source}#Intent;package=com.mxtech.videoplayer.ad;S.title=${title};end`,
+            `intent:${getSource(source)}#Intent;package=com.mxtech.videoplayer.ad;S.title=${title};end`,
     },
     {
         name: "MXPlayer (Pro)",
         url: (source, title) =>
-            `intent:${source}#Intent;package=com.mxtech.videoplayer.pro;S.title=${title};end`,
+            `intent:${getSource(source)}#Intent;package=com.mxtech.videoplayer.pro;S.title=${title};end`,
     },
 ];
 
